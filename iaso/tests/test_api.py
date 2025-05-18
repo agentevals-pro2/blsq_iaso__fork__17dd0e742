@@ -65,8 +65,8 @@ class BasicAPITestCase(APITestCase):
         velpo_model = OrgUnit.objects.get(uuid=uuid)
         self.assertEqual(velpo_model.name, name)
         # Location should be filled
-        self.assertEqual(4.469, velpo_model.location.x)
-        self.assertEqual(50.503, velpo_model.location.y)
+        self.assertAlmostEqual(velpo_model.location.x, 4.469)
+        self.assertAlmostEqual(velpo_model.location.y, 50.503)
         self.assertEqual(110, velpo_model.location.z)
 
         # make sure APIImport record has been created
@@ -302,8 +302,8 @@ class BasicAPITestCase(APITestCase):
         self.assertEqual(instance.name, name)
         self.assertEqual(instance.org_unit_id, velpo_model.id)
         self.assertEqual(instance.form_id, form.id)
-        self.assertEqual(instance.location.x, 4.4)
-        self.assertEqual(instance.location.y, 4.4)
+        self.assertAlmostEqual(instance.location.x, 4.4)
+        self.assertAlmostEqual(instance.location.y, 4.4)
         self.assertEqual(instance.location.z, 100)
 
         self.assertAPIImport("instance", request_body=instance_body, has_problems=False)
